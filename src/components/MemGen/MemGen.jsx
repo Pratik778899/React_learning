@@ -65,8 +65,9 @@ class MemGen extends Component {
               "linear-gradient(180deg, rgba(0,14,19,1) 0%, rgba(6,0,79,1) 100%)",
           }}
         >
-          <div id="title" className="text-white text-5xl my-5">
+          <div id="title" className="flex justify-center items-center gap-14 text-white text-5xl my-5">
             <h1>Meme Generator</h1>
+            <h4 className="text-2xl">Made By Pratik Chaudhari</h4>
           </div>
           
           {currentImage && (
