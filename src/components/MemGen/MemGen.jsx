@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Loader from "./Loader";
 
 class MemGen extends Component {
   constructor(props) {
@@ -7,6 +8,7 @@ class MemGen extends Component {
     this.state = {
       memGen: [],
       currentImgIndex: 0,
+      Loading: false,
     };
   }
 
@@ -37,6 +39,7 @@ class MemGen extends Component {
       return {
         currentImgIndex:
           (prevValue.currentImgIndex + 1) % this.state.memGen.length,
+        Loading: true,
       };
     });
   };
@@ -47,8 +50,13 @@ class MemGen extends Component {
         currentImgIndex:
           (prevValue.currentImgIndex - 1 + this.state.memGen.length) %
           this.state.memGen.length,
+        Loading: true,
       };
     });
+  };
+
+  handleImageLoad = () => {
+    this.setState({ Loading: false });
   };
 
   render() {
@@ -65,18 +73,28 @@ class MemGen extends Component {
               "linear-gradient(180deg, rgba(0,14,19,1) 0%, rgba(6,0,79,1) 100%)",
           }}
         >
-          <div id="title" className="flex justify-center items-center gap-14 text-white text-5xl my-5">
+          <div
+            id="title"
+            style={{fontSize:"5vh"}}
+            className="flex justify-center items-center gap-14 text-white text-5xl m-5"
+          >
             <h1>Meme Generator</h1>
-            <h4 className="text-2xl">Made By Pratik Chaudhari</h4>
+            <h4 style={{fontSize:"2vh"}}>Made By Pratik Chaudhari</h4>
           </div>
-          
+          {this.state.Loading && <Loader />}
           {currentImage && (
             <div id="flex" key={currentImage.id}>
-              <img className="rounded-lg" src={currentImage.image} alt="" />
+              <img
+              style={{height:"300px"}}
+                className="rounded-lg" 
+                src={currentImage.image}
+                alt=""
+                onLoad={this.handleImageLoad}
+              />
             </div>
           )}
 
-          <div className="flex gap-6 m-5">
+          <div className="flex gap-4 m-5">
             <button
               onClick={this.handlePrev}
               className="border-2 border-solid border-white px-8 py-2 text-white"
